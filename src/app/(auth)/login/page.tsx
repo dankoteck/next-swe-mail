@@ -1,10 +1,11 @@
-import Link from "next/link";
+import LoginForm from "./form";
 
 export default function Page() {
   return (
-    <section className="">
-      <h1 className="">Login</h1>
-      <Link href="/api/login/google">Sign in with Google</Link>
-    </section>
+    <main className="container h-full w-full">
+      <section className="flex h-full w-full items-center justify-center">
+        <LoginForm />
+      </section>
+    </main>
   );
 }
