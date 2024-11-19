@@ -16,7 +16,7 @@ export default function LoginForm() {
             NSM
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col gap-1">
+        <div className="space-y-1">
           <h1 className="text-3xl">Next SWE Mail</h1>
           <h2 className="text-lg">
             All you need about research, developments, etc... is in here.

@@ -70,3 +70,7 @@
     @apply h-full w-full bg-background text-foreground;
   }
 }
+
+.tiptap {
+  @apply focus-visible:outline-none;
+}
