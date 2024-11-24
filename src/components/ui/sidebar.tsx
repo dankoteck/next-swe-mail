@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const nav = [
-  { text: "General", href: "/create/general" },
-  { text: "Text Coding", href: "/create/text-coding" },
+  { text: "Information", href: "/create/information" },
+  { text: "Source Code", href: "/create/source-code" },
+  { text: "Preview", href: "/create/preview" },
 ];
 
 export default function Sidebar() {
@@ -16,8 +17,8 @@ export default function Sidebar() {
     <aside className="col-span-3">
       <nav>
         <ul className="space-y-6">
-          {nav.map((item, idx) => (
-            <li key={idx}>
+          {nav.map((item) => (
+            <li key={item.href}>
               <Link
                 href={item.href}
                 className={cn(

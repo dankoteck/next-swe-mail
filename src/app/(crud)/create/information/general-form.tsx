@@ -22,7 +22,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const currentMailTypes = [
+// TODO: Replace with fetch data from API
+const currentMailBranches = [
   "SBS/SBF",
   "comado2024",
   "scrum2024",
@@ -33,17 +34,21 @@ const currentMailTypes = [
 
 const formSchema = z.object({
   width: z.enum(["600", "300"]),
-  type: z.enum(currentMailTypes).nullable(),
-  ticket: z.string().min(1),
+  branch: z.enum(currentMailBranches).nullable(),
+  url: z.string(),
+  backlogTicket: z.string().optional(),
+  figmaLink: z.string().optional(),
 });
 
-export default function CreateGeneralForm() {
+export default function GeneralForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       width: "600",
-      type: null,
-      ticket: "",
+      branch: null,
+      url: "",
+      backlogTicket: "",
+      figmaLink: "",
     },
   });
 
@@ -56,14 +61,16 @@ export default function CreateGeneralForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="ticket"
+          name="url"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Ticket</FormLabel>
+              <FormLabel>URL</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormDescription>Which ticket about this mail.</FormDescription>
+              <FormDescription>
+                This field is required for previewable mail template.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -71,10 +78,10 @@ export default function CreateGeneralForm() {
 
         <FormField
           control={form.control}
-          name="type"
+          name="branch"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Type</FormLabel>
+              <FormLabel>Branch</FormLabel>
               <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className="w-full">
@@ -82,7 +89,7 @@ export default function CreateGeneralForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {currentMailTypes.map((item) => (
+                  {currentMailBranches.map((item) => (
                     <SelectItem key={item} value={item}>
                       {item}
                     </SelectItem>
@@ -90,8 +97,7 @@ export default function CreateGeneralForm() {
                 </SelectContent>
               </Select>
               <FormDescription>
-                Type of mail. It can be one of those. If not, just create a new
-                one.
+                Which branch this mail is belonged to.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -116,7 +122,42 @@ export default function CreateGeneralForm() {
                 </SelectContent>
               </Select>
               <FormDescription>
-                Width of the mail. It iss usually is `375px` or `600px`
+                Width of the mail. It usually is `375px` or `600px`.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="backlogTicket"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Backlog Ticket</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormDescription>
+                Ticket of this mail on the Backlog.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="figmaLink"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Figma link</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormDescription>
+                Desgin of this mail template. Please attached EXACT the link
+                which linked directly into this mail.
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -8,16 +8,15 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="">
+    <section className="h-full">
       <div className="space-y-1 border-b border-primary pb-6">
-        <h1 className="text-3xl">CREATE NEW COLLECTION</h1>
-        <h2 className="text-lg">Add new collection</h2>
+        <h1 className="text-3xl">CREATE</h1>
+        <h2 className="text-lg">Add new template</h2>
       </div>
 
-      <div className="grid grid-cols-12 gap-4 pt-6">
+      <div className="grid h-full grid-cols-12 gap-4 pt-6">
         <Sidebar />
-
-        <article className="col-span-9">{children}</article>
+        <article className="col-span-9 h-full">{children}</article>
       </div>
     </section>
   );
